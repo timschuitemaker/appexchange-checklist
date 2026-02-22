@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-surface: #1e293b;
+  --color-border: #334155;
+  --color-accent: #f59e0b;
+  --color-critical: #ef4444;
+  --color-success: #10b981;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Smooth transitions for interactive elements */
+.transition-checked {
+  transition: opacity 150ms ease;
+}
+
+/* Category section expand/collapse */
+.category-content {
+  animation: slideDown 150ms ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Item details expand animation */
+.item-details {
+  animation: fadeSlideIn 200ms ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-expand {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  details {
+    display: block !important;
+  }
+
+  details[open] summary ~ * {
+    display: block !important;
+  }
+
+  details summary {
+    display: none !important;
+  }
+
+  details > *:not(summary) {
+    display: block !important;
+  }
+
+  /* Flatten for print */
+  .transition-checked {
+    opacity: 1 !important;
+  }
+
+  /* Severity borders in print */
+  .border-l-red-500 {
+    border-left-color: #ef4444 !important;
+    border-left-width: 4px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .border-l-amber-500 {
+    border-left-color: #f59e0b !important;
+    border-left-width: 4px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .border-l-blue-400 {
+    border-left-color: #60a5fa !important;
+    border-left-width: 4px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .border-l-slate-300 {
+    border-left-color: #cbd5e1 !important;
+    border-left-width: 4px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Code blocks in print */
+  pre {
+    background: #f1f5f9 !important;
+    color: #1e293b !important;
+    border: 1px solid #e2e8f0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+  }
+
+  /* Severity pills in print */
+  .severity-pill {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
