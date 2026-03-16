@@ -100,7 +100,21 @@ export default function Home() {
           <img src="/icon.svg" alt="" width={20} height={20} className="shrink-0" />
           AppExchange Security Review
         </span>
-        <ThemeToggle />
+        <div className="flex items-center gap-3">
+          <a
+            href="https://github.com/timschuitemaker/appexchange-checklist"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="GitHub stars"
+              src="https://img.shields.io/github/stars/timschuitemaker/appexchange-checklist?style=social"
+              className="h-6 w-auto"
+            />
+          </a>
+          <ThemeToggle />
+        </div>
       </header>
 
       {!selectedAppTypes ? (
