@@ -4,20 +4,23 @@ Thanks for helping improve the AppExchange Security Review Checklist! This is a 
 
 ## Adding or updating checklist items
 
-The checklist data lives in [`data/checklist.ts`](data/checklist.ts). Each item has this structure:
+The checklist data lives in [`data/checklist.ts`](data/checklist.ts). Each item has this structure (see [`types/index.ts`](types/index.ts) for the source of truth):
 
 ```typescript
 {
-  id: string           // Unique ID (e.g. 'crud-01')
-  category: string     // Must match one of the categories in the `categories` array
-  title: string        // Short, actionable title
-  description: string  // Detailed explanation
-  severity: 'critical' | 'important' | 'nice'
-  docUrl?: string      // Link to official documentation
-  docLabel?: string    // Display text for the doc link
-  tip?: string         // Pro tip shown on expand
-  appTypes?: string[]  // Only show for these app types (empty = show always)
-  codeExample?: string // Optional code snippet
+  id: string                    // Unique ID (e.g. 'onboard-01')
+  category: string              // Must match one of the categories in the `categories` array
+  title: string                 // Short, actionable title
+  subtitle: string              // One-line explanation shown under the title
+  details: string[]             // Bullet points shown when expanded
+  severity: 'critical' | 'important' | 'recommended' | 'nice'
+  severityNote?: string         // Short label next to the severity badge (e.g. 'Auto-reject')
+  docUrl?: string               // Link to official documentation
+  docLabel?: string             // Display text for the doc link
+  tip?: string                  // Pro tip shown on expand
+  appTypes?: string[]           // Only show for these app types (empty = show always)
+  codeExamples?: CodeExample[]  // Optional bad/good code snippets
+  howTo?: string[]              // Step-by-step instructions (markdown links supported)
 }
 ```
 
@@ -27,28 +30,37 @@ The checklist data lives in [`data/checklist.ts`](data/checklist.ts). Each item 
 - **Cite sources**: Link to official Salesforce documentation where possible.
 - **Keep items atomic**: Each item should represent one thing to check, not a bundle of related items.
 - **Use the right severity**:
-  - `critical` = automatic fail if missed
+  - `critical` = automatic fail / gating step if missed
   - `important` = likely to cause issues or delay
+  - `recommended` = good practice that smooths the review
   - `nice` = best practice, won't cause a fail
 
 ### App type IDs
 
 When an item only applies to certain app types, use these IDs in the `appTypes` array:
 
+**On-platform**
 - `managed_package_1gp` — First-generation managed package
 - `managed_package_2gp` — Second-generation managed package
 - `lightning_components` — Lightning Web Components / Aura
 - `base_extension` — Base + extension package structure
 - `apex_callouts` — Uses Apex callouts to external services
-- `external_web_app` — External website / web app
+- `agentforce_app` — Agentforce app / AgentExchange listing
+
+**External**
+- `external_web_app` — External / composite web app
 - `api_endpoints` — REST API / web services
+- `external_client_app` — External Client App (ECA, 2GP-native replacement for Connected Apps)
+- `connected_app` — Connected App (legacy)
 - `mobile_ios` — iOS mobile app
 - `mobile_android` — Android mobile app
 - `browser_extension` — Browser extension
 - `desktop_app` — Desktop/client app
+
+**Special**
 - `marketing_cloud` — Marketing Cloud Engagement app
-- `free_listing` — Free listing
-- `paid_listing` — Paid listing
+- `quip_app` — Quip app
+- `paid_listing` — Paid listing ($999 per review attempt)
 
 ## Reporting issues
 
