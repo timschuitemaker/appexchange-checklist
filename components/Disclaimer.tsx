@@ -72,6 +72,15 @@ export function DisclaimerFooter() {
       >
         ISVforce Guide ↗
       </a>
+      {' '}· Built by{' '}
+      <a
+        href="https://novigem.com"
+        target="_blank"
+        rel="noopener"
+        className="text-amber-600 hover:text-amber-500 dark:text-amber-500 dark:hover:text-amber-400"
+      >
+        Novigem
+      </a>
     </footer>
   )
 }
